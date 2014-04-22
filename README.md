@@ -1,18 +1,18 @@
-# EmailAttribute [![Build Status](https://travis-ci.org/chingor13/email_attribute.png)](https://travis-ci.org/chingor13/email_attribute)
+# UrllAttribute [![Build Status](https://travis-ci.org/chingor13/url_attribute.png)](https://travis-ci.org/chingor13/url_attribute)
 
-ActiveModel attribute serialization using the `mail` gem.
+ActiveModel attribute serialization for urls.
 
 ## Usage
 
-Assuming you have a column named `address` on the `email_addresses` table, you can easily add email address handling with:
+Assuming you have a column named `url` on the `users` table, you can easily add url handling with:
 
 ```
-class EmailAddresses < ActiveRecord::Base
-  email_address_attribute :address
+class User < ActiveRecord::Base
+  url_attribute :url
 end
 
-email = EmailAddress.new({
-  address: "Jeff Ching <ching.jeff@gmail.com>"
+user = User.new({
+  url: "chingr.com"
 })
 
 email.address

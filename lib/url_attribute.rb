@@ -1,7 +1,9 @@
 require 'mail'
 
 module UrlAttribute
-  autoload :Attribute, "email_attribute/attribute"
+  autoload :Attribute, "url_attribute/attribute"
+  autoload :NormalizedUrl, "url_attribute/normalized_url"
+  autoload :Url, "url_attribute/url"
 end
 
-require 'email_attribute/railtie'
+require 'url_attribute/railtie'

@@ -7,7 +7,7 @@ class UrlValidator < ActiveModel::EachValidator
     when UrlAttribute::Url
 
     when String
-     
+    end
   end
 
 end
