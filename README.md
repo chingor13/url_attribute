@@ -1,4 +1,4 @@
-# UrllAttribute [![Build Status](https://travis-ci.org/chingor13/url_attribute.png)](https://travis-ci.org/chingor13/url_attribute)
+# UrlAttribute [![Build Status](https://travis-ci.org/chingor13/url_attribute.png)](https://travis-ci.org/chingor13/url_attribute)
 
 ActiveModel attribute serialization for urls.
 
@@ -15,63 +15,59 @@ user = User.new({
   url: "chingr.com"
 })
 
-email.address
-=> "Jeff Ching <ching.jeff@gmail.com>"
+user.url.class
+=> UrlAttribute::NormalizedUrl
 
-email.address = "ching.jeff@gmail.com"
-email.address
-=> "ching.jeff@gmail.com"
+user.url.to_s
+=> "http://chingr.com"
 
-email.address = "some bad email address"
-email.address
-=> "some bad email address"
-```
-
-You can also specify a column as a email address list type, which is a serialized array of email addresses.
+user.url = nil
+user.url
+=> nil
 
 ```
-class Email < ActiveRecord::Base
-  email_address_list_attribute :to
+
+You can also specify a column to ignore url normalization.
+
+```
+class User < ActiveRecord::Base
+  url_attribute :stem, normalize: false
 end
 
-email = Email.new({
-  to: "Jeff Ching <ching.jeff@gmail.com>; email@foo.com"
+user = User.create({
+  name: "Jeff",
+  stem: "chingr.com"
 })
-email.to
-=> "Jeff Ching <ching.jeff@gmail.com>; email@foo.com"
-
-email.to.length 
-=> 2
+user.stem.to_s
+=> "chingr.com"
 
 ```
 
 ## Validating
 
-`EmailAttribute` provides validation to `ActiveModel`.  To use:
+`UrlAttribute` provides validation to `ActiveModel`.  To use:
 
 ```
-class EmailAddresses < ActiveRecord::Base
-  email_address_attribute :address
-  validates :address, email: { 
+class User < ActiveRecord::Base
+  url_attribute :url
+  validates :url, url: { 
     allow_blank: true,
     message: "is invalid"
   }
 end
 
-email = EmailAddress.new({
-  address: "some bad email address"
+user = User.new({
+  name: "Jeff",
+  url: "some invalid url"
 })
-email.save
+
+user.save
 => false
 
-email.errors.full_messages
-=> ["Address is invalid"]
+user.errors.full_messages
+=> ["Url is invalid"]
+
 ```
-
-## Formatting
-
-`PhonyAttribute` comes built with a few named formats. You can add your own by adding to the `PhonyAttribute::PhoneNumber.named_formats` hash.  The value can be either an options hash (passed directly to Phony's format) or a callable Proc/lambda that yields the phone number object.
-
 
 ## License
 
