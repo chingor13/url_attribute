@@ -3,7 +3,10 @@ module UrlAttribute
     def initialize(url)
       super
 
-      @uri = URI.parse("http://#{url}") if @uri && @uri.scheme.blank?
+      if @uri && @uri.scheme.blank?
+        @uri = URI.parse("http://#{url}")
+        @url = @uri.to_s
+      end
     rescue URI::InvalidURIError
     end
   end

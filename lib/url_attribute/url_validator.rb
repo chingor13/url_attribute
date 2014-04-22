@@ -5,8 +5,9 @@ class UrlValidator < ActiveModel::EachValidator
 
     case value
     when UrlAttribute::Url
-
+      record.errors.add(attribute, options.fetch(:message, :invalid)) unless value.valid?
     when String
+      record.errors.add(attribute, options.fetch(:message, :invalid)) unless UrlAttribute::Url.load(value).valid?
     end
   end
 

@@ -1,8 +1,9 @@
 module UrlAttribute
   class Url
-    attr_reader :uri
+    attr_reader :uri, :url
 
     def initialize(url)
+      @url = url
       @uri = URI.parse(url)
     rescue URI::InvalidURIError
     end
@@ -20,7 +21,11 @@ module UrlAttribute
     end
 
     def to_s
-      uri.to_s
+      url.to_s
+    end
+
+    def valid?
+      uri.present?
     end
 
   end
