@@ -1,6 +1,11 @@
+require 'forwardable'
+
 module UrlAttribute
   class Url
+    extend Forwardable
+
     attr_reader :uri, :url
+    def_delegators :uri, :host, :scheme, :path, :query
 
     def initialize(url)
       @url = url
@@ -25,7 +30,7 @@ module UrlAttribute
     end
 
     def valid?
-      uri.present?
+      uri.present? && url =~ /^#{URI::regexp}$/
     end
 
   end

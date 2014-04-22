@@ -48,17 +48,4 @@ class UserTest < ActiveSupport::TestCase
     assert_nil(user.website)
   end
 
-  test "invalid url" do
-    user = User.new({
-      name: "New Person",
-      website: "something totally invalid"
-    })
-
-    assert(user.website)
-
-    assert !user.valid?, "invalid website should be invalid"
-    assert user.errors[:website].present?
-
-    assert_equal("something totally invalid", user.website.to_s)
-  end
 end

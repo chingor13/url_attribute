@@ -1,4 +1,4 @@
-require 'mail'
+require 'uri'
 
 module UrlAttribute
   autoload :Attribute, "url_attribute/attribute"
